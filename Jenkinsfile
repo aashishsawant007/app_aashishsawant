@@ -8,7 +8,8 @@ pipeline {
     stages {
         stage('Code Checkout'){
             steps {
-                git branch: 'develop', url: 'https://github.com/aashishsawant007/app_aashishsawant.git'
+
+                git branch: 'master', url: 'https://github.com/aashishsawant007/app_aashishsawant.git'
             }
         }
         stage('Nuget Restore'){
@@ -35,6 +36,10 @@ pipeline {
 				withSonarQubeEnv('Test_Sonar'){
 					bat "dotnet ${scannerHome}\\SonarScanner.MSBuild.dll end" 
 				}
+		stage('Code Build'){
+            steps {
+				bat 'dotnet clean'
+                bat 'dotnet build'
             }
         }
         stage('Test Case Execution'){
