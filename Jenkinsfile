@@ -9,7 +9,7 @@ pipeline {
         stage('Code Checkout'){
             steps {
 
-                git branch: 'master', url: 'https://github.com/aashishsawant007/app_aashishsawant.git'
+                git branch: 'develop', url: 'https://github.com/aashishsawant007/app_aashishsawant.git'
             }
         }
         stage('Nuget Restore'){
