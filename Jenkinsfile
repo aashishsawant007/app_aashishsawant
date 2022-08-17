@@ -3,13 +3,12 @@ pipeline {
 	
 	environment {
 		scannerHome = tool name: 'sonar_scanner_dotnet'
-		dockerhubcredentials = 'dockerhubcredentials'
 	}
     
     stages {
         stage('Code Checkout'){
             steps {
-                git branch: 'master', url: 'https://github.com/aashishsawant007/app_aashishsawant.git'
+                git branch: 'develop', url: 'https://github.com/aashishsawant007/app_aashishsawant.git'
             }
         }
         stage('Nuget Restore'){
@@ -25,7 +24,7 @@ pipeline {
         }
         stage('Test Case Execution'){
             steps {
-                bat 'dotnet test --logger:trx;LogFileName=appgopalkumartest.xml'
+                bat 'dotnet test --logger:trx;LogFileName=appaashishsawanttest.xml'
             }
         }
     }
