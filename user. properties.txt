@@ -1,0 +1,4 @@
+user.name=aashishsawant
+user.employeeid=3151982
+user.emailid=aashish.sawant@nagarro.com
+user.type=dotnet
