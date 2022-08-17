@@ -16,6 +16,17 @@ pipeline {
             steps {
                 bat 'dotnet restore'
             }
+        }		
+        stage('Code Clean'){
+            steps {
+				bat 'dotnet clean'
+            }
+        }      		
+        stage('Code Build'){
+            steps {
+				bat 'dotnet clean'
+                bat 'dotnet build'
+            }
         }
         stage('Start SonarQube Analysis'){
             steps {
@@ -25,23 +36,12 @@ pipeline {
 				}
             }
         }
-		stage('Code Clean'){
-            steps {
-				bat 'dotnet clean'
-            }
-        }
 		stage('Stop SonarQube Analysis'){
             steps {
 				echo 'Stopping SonarQube Analysis'
 				withSonarQubeEnv('Test_Sonar') {
 					bat "dotnet ${scannerHome}\\SonarScanner.MSBuild.dll end" 
 				}
-            }
-        }
-		stage('Code Build'){
-            steps {
-				bat 'dotnet clean'
-                bat 'dotnet build'
             }
         }
         stage('Test Case Execution'){
