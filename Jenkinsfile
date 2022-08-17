@@ -44,5 +44,16 @@ pipeline {
 				}
             }
         }
+        stage('Build & Push Docker Image'){
+            steps {
+				echo 'Starting Build & Push Docker Image'
+				script{
+					dockerImage = docker.build 'aashishsawant/i-aashishsawant-master:latest'
+					docker.withRegistry('', dockerhubcredentials) {
+						dockerImage.push('latest')
+					}
+				}
+            }
+        }
     }
 }
