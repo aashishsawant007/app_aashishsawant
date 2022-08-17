@@ -16,18 +16,7 @@ pipeline {
             steps {
                 bat 'dotnet restore'
             }
-        }		
-        stage('Code Clean'){
-            steps {
-				bat 'dotnet clean'
-            }
-        }      		
-        stage('Code Build'){
-            steps {
-				bat 'dotnet clean'
-                bat 'dotnet build'
-            }
-        }
+        }		      		
         stage('Start SonarQube Analysis'){
             steps {
 				echo 'Starting SonarQube Analysis'
@@ -36,17 +25,23 @@ pipeline {
 				}
             }
         }
-		stage('Stop SonarQube Analysis'){
+        stage('Code Build'){
             steps {
-				echo 'Stopping SonarQube Analysis'
-				withSonarQubeEnv('Test_Sonar') {
-					bat "dotnet ${scannerHome}\\SonarScanner.MSBuild.dll end" 
-				}
+				bat 'dotnet clean'
+                bat 'dotnet build'
             }
         }
         stage('Test Case Execution'){
             steps {
                 bat 'dotnet test --logger:trx;LogFileName=appaashishsawanttest.xml'
+            }
+        }
+        stage('Stop SonarQube Analysis'){
+            steps {
+				echo 'Stopping SonarQube Analysis'
+				withSonarQubeEnv('Test_Sonar') {
+					bat "dotnet ${scannerHome}\\SonarScanner.MSBuild.dll end" 
+				}
             }
         }
     }
