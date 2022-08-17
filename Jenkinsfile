@@ -24,7 +24,7 @@ pipeline {
         }
         stage('Test Case Execution'){
             steps {
-                bat 'dotnet test --logger:trx;LogFileName=appgopalkumartest.xml'
+                bat 'dotnet test --logger:trx;LogFileName=appaashishsawanttest.xml'
             }
         }
     }
