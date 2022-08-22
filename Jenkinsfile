@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('Code Checkout'){
             steps {
-
+                echo 'Pulling...' + env.BRANCH_NAME
                 git branch: 'master', url: 'https://github.com/aashishsawant007/app_aashishsawant.git'
             }
         }
