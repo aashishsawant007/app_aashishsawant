@@ -1,3 +1,43 @@
 apiVersion: v1
-description: A Helm chart for cvi-adapter-service
-name: cvi-adapter-service
+kind: Service
+metadata:
+  name: nagp-devops-us-master-service
+  namespace: kubernetes-cluster-aashishsawant
+spec:
+  selector:
+    app: nagp-devops-us-master
+  ports:
+    - port: 80
+      targetPort: 80
+      nodePort: 31500
+  type: LoadBalancer
+envFrom: 
+- configMapRef:
+  name: nagp-devops-us-master-config
+- secretRef:
+  name: nagp-devops-us-master-secret
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nagp-devops-us-master-config
+  namespace: kubernetes-cluster-aashishsawant
+  labels:
+    app: nagp-devops-us-master
+data:
+  url: "https://kubernetes.io/"
+  environment: "Production"
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: nagp-devops-us-master-secret
+  namespace: kubernetes-cluster-aashishsawant
+  labels:
+    app: nagp-devops-us-master
+data:
+  key: YWFzaGlzaC5zYXdhbnRAbmFnYXJyby5jb20=
+  password: VGhpc0BQYXNzd29yZA==
+type: Opaque

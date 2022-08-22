@@ -20,6 +20,10 @@ namespace nagp_devops_us.Controllers
 
         public IActionResult Index()
         {
+            ViewBag.Url = Environment.GetEnvironmentVariable("url");
+            ViewBag.Environment = Environment.GetEnvironmentVariable("environment");
+            ViewBag.Key = Environment.GetEnvironmentVariable("key");
+            ViewBag.Password = Environment.GetEnvironmentVariable("password");
             return View();
         }
 
