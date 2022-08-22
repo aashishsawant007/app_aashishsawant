@@ -19,6 +19,9 @@ pipeline {
             }
         }		      		
         stage('Start SonarQube Analysis'){
+               when {
+				branch 'master'
+			}
             steps {
 				echo 'Starting SonarQube Analysis'
 				withSonarQubeEnv('Test_Sonar') {
@@ -38,11 +41,23 @@ pipeline {
             }
         }
         stage('Stop SonarQube Analysis'){
+               when {
+				branch 'master'
+			}
             steps {
 				echo 'Stopping SonarQube Analysis'
 				withSonarQubeEnv('Test_Sonar') {
 					bat "dotnet ${scannerHome}\\SonarScanner.MSBuild.dll end" 
 				}
+            }
+        }
+        stage('Release Artifact'){
+             when {
+				branch 'develop'
+			}
+            steps {
+				echo 'Starting Release Artifact'
+				bat "dotnet publish -c Release -o ${appname}/app/${username}" 
             }
         }
         stage('Build & Push Docker Image'){
