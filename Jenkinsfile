@@ -4,13 +4,15 @@ pipeline {
 	environment {
 		scannerHome = tool name: 'sonar_scanner_dotnet'
         dockerhubcredentials = 'dockerhubcredentials'
+        username = 'aashishsawant'
+        appName = 'NAGP-DevOps'
 	}
     
     stages {
         stage('Code Checkout'){
             steps {
-                echo 'Pulling...' + env.BRANCH_NAME
-                git branch: 'master', url: 'https://github.com/aashishsawant007/app_aashishsawant.git'
+                echo 'Checkout...' + env.BRANCH_NAME
+                git branch: "${env.BRANCH_NAME}", url: 'https://github.com/aashishsawant007/app_aashishsawant.git'
             }
         }
         stage('Nuget Restore'){
@@ -60,15 +62,9 @@ pipeline {
 				bat "dotnet publish -c Release -o ${appname}/app/${username}" 
             }
         }
-        stage('Build & Push Docker Image'){
+        stage('Kubernetes deployment'){
             steps {
-				echo 'Starting Build & Push Docker Image'
-				script{
-					dockerImage = docker.build 'aashishsawant/i-aashishsawant-master:latest'
-					docker.withRegistry('', dockerhubcredentials) {
-						dockerImage.push('latest')
-					}
-				}
+				echo 'Starting Kubernetes deployment'
             }
         }
     }
