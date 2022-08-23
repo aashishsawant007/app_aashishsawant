@@ -63,16 +63,16 @@ pipeline {
 				bat "dotnet publish -c Release -o ${appname}/app/${username}" 
             }
         }
-        stage('Docker Image') {
-			steps {
-				echo "Create Docker Image"
-				bat "docker build -t i-${username}-${BRANCH_NAME}:latest ."
-                echo 'Pushing Image to Docker Hub'
-                withDockerRegistry(credentialsId: env.dockerhubcredentials, toolName: 'docker') {
-                    bat "docker push aashishsawant/i-${username}-${BRANCH_NAME}:latest"
-                }
-		    }
-        }
+        stage('Build & Push Docker Image'){
+            steps {
+				echo 'Starting Build & Push Docker Image'
+				script{
+					dockerImage = docker.build 'aashishsawant/i-aashishsawant-master:latest'
+					docker.withRegistry('', env.dockerhubcredentials) {
+						dockerImage.push('latest')
+					}
+				}
+            }
         stage('Kubernetes deployment'){
             steps {
 				echo 'Starting Kubernetes deployment'
