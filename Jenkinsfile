@@ -3,7 +3,7 @@ pipeline {
 	
 	environment {
 		scannerHome = tool name: 'sonar_scanner_dotnet'
-        dockerhubcredentials = 'dockerhubcredentials'
+        credentialId = 'dockerhubcredentials'
         username = 'aashishsawant'
         appName = 'NAGP-DevOps'
         registry = 'aashishsawant'
@@ -13,7 +13,7 @@ pipeline {
 	}
     
     stages {
-        stage('Code Checkout'){
+        stage('Start'){
             steps {
                 echo 'Checkout...' + env.BRANCH_NAME
                 git branch: "${env.BRANCH_NAME}", url: 'https://github.com/aashishsawant007/app_aashishsawant.git'
@@ -71,7 +71,7 @@ pipeline {
 				echo 'Starting Build & Push Docker Image'
 				script{
 					dockerImage = docker.build "${username}/i-${username}-${env.BRANCH_NAME}:latest"
-					docker.withRegistry('', env.dockerhubcredentials) {
+					docker.withRegistry('', env.credentialId) {
 						dockerImage.push('latest')
 					}
 				}
