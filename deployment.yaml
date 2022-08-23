@@ -25,3 +25,33 @@ spec:
       containers:
       - name: nagp-devops-us-master-container
         image: aashishsawant/i-aashishsawant-master:latest
+        envFrom: 
+        - configMapRef:
+            name: nagp-devops-us-master-config
+        - secretRef:
+            name: nagp-devops-us-master-secret
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nagp-devops-us-master-config
+  namespace: kubernetes-cluster-aashishsawant
+  labels:
+    app: nagp-devops-us-master
+data:
+  url: "https://kubernetes.io/"
+  environment: "Production"
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: nagp-devops-us-master-secret
+  namespace: kubernetes-cluster-aashishsawant
+  labels:
+    app: nagp-devops-us-master
+data:
+  key: YWFzaGlzaC5zYXdhbnRAbmFnYXJyby5jb20=
+  password: VGhpc0BQYXNzd29yZA==
+type: Opaque            
