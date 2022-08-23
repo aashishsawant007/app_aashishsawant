@@ -76,7 +76,8 @@ pipeline {
                     bat "docker push ${registry}:${BRANCH_NAME}-${BUILD_NUMBER}"
                     bat "docker push ${registry}:${BRANCH_NAME}-latest"
                 }
-		}
+		    }
+        }
         stage('Kubernetes deployment'){
             steps {
 				echo 'Starting Kubernetes deployment'
