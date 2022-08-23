@@ -3,6 +3,8 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome @ViewBag.Url and @ViewBag.Key</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">This is AppConfigUrl from Config Map : @ViewBag.AppConfigUrl</h1>
+    <h1 class="display-4">This is AppConfigEnvironment from Config Map :  @ViewBag.AppConfigEnvironment</h1>
+    <h1 class="display-4">Here are secerts Key @ViewBag.Key</h1>
+    <h1 class="display-4">Here are secerts Value  @ViewBag.Vault</h1>
 </div>

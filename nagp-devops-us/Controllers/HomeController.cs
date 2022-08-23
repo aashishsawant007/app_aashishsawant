@@ -20,10 +20,7 @@ namespace nagp_devops_us.Controllers
 
         public IActionResult Index()
         {
-            ViewBag.Url = Environment.GetEnvironmentVariable("url");
-            ViewBag.Environment = Environment.GetEnvironmentVariable("environment");
-            ViewBag.Key = Environment.GetEnvironmentVariable("key");
-            ViewBag.Password = Environment.GetEnvironmentVariable("password");
+            InitializeViewBagValues();
             return View();
         }
 
@@ -43,6 +40,17 @@ namespace nagp_devops_us.Controllers
            //Added for coverage
            Console.WriteLine("coverage");
             return val;
+        }
+
+        private InitializeViewBagValues()
+        {
+            // Configurations
+            ViewBag.Url = Environment.GetEnvironmentVariable("AppConfigUrl");
+            ViewBag.Environment = Environment.GetEnvironmentVariable("AppConfigEnvironment");
+            
+            // Secerts
+            ViewBag.Key = Environment.GetEnvironmentVariable("Key");
+            ViewBag.Password = Environment.GetEnvironmentVariable("Vault ");
         }
     }
 }

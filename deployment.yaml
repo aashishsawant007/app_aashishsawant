@@ -7,51 +7,51 @@ metadata:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nagp-devops-us-master-deployment
+  name: nagp-master-deployment
   namespace: kubernetes-cluster-aashishsawant
   labels:
-    app: nagp-devops-us-master
+    app: nagp-master
 spec:
   replicas: 4
   selector:
     matchLabels:
-      app: nagp-devops-us-master
+      app: nagp-master
   template:
     metadata:
-      name:  nagp-devops-us-master-pod
+      name:  nagp-master-pod
       labels:
-        app: nagp-devops-us-master
+        app: nagp-master
     spec:
       containers:
-      - name: nagp-devops-us-master-container
+      - name: nagp-master-container
         image: aashishsawant/i-aashishsawant-master:latest
         envFrom: 
         - configMapRef:
-            name: nagp-devops-us-master-config
+            name: nagp-master-config
         - secretRef:
-            name: nagp-devops-us-master-secret
+            name: nagp-master-secret
 
 ---
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: nagp-devops-us-master-config
+  name: nagp-master-config
   namespace: kubernetes-cluster-aashishsawant
   labels:
-    app: nagp-devops-us-master
+    app: nagp-master
 data:
-  url: "https://kubernetes.io/"
-  environment: "Production"
+  AppConfigUrl: "https://test.io/"
+  AppConfigEnvironment: "Production"
 
 ---
 apiVersion: v1
 kind: Secret
 metadata:
-  name: nagp-devops-us-master-secret
+  name: nagp-master-secret
   namespace: kubernetes-cluster-aashishsawant
   labels:
-    app: nagp-devops-us-master
+    app: nagp-master
 data:
-  key: YWFzaGlzaC5zYXdhbnRAbmFnYXJyby5jb20=
-  password: VGhpc0BQYXNzd29yZA==
+  Key: YWFzaGlzaC5zYXdhbnRAbmFnYXJyby5jb20=
+  Vault: VGhpc0BQYXNzd29yZA==
 type: Opaque            
