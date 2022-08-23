@@ -7,38 +7,38 @@ metadata:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nagp-master-deployment
+  name: nagp-develop-deployment
   namespace: kubernetes-cluster-aashishsawant
   labels:
-    app: nagp-master
+    app: nagp-develop
 spec:
   replicas: 4
   selector:
     matchLabels:
-      app: nagp-master
+      app: nagp-develop
   template:
     metadata:
-      name:  nagp-master-pod
+      name:  nagp-develop-pod
       labels:
-        app: nagp-master
+        app: nagp-develop
     spec:
       containers:
-      - name: nagp-master-container
-        image: aashishsawant/i-aashishsawant-master:latest
+      - name: nagp-develop-container
+        image: aashishsawant/i-aashishsawant-develop:latest
         envFrom: 
         - configMapRef:
-            name: nagp-master-config
+            name: nagp-develop-config
         - secretRef:
-            name: nagp-master-secret
+            name: nagp-develop-secret
 
 ---
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: nagp-master-config
+  name: nagp-develop-config
   namespace: kubernetes-cluster-aashishsawant
   labels:
-    app: nagp-master
+    app: nagp-develop
 data:
   AppConfigUrl: "https://test.io/"
   AppConfigEnvironment: "Production"
@@ -47,10 +47,10 @@ data:
 apiVersion: v1
 kind: Secret
 metadata:
-  name: nagp-master-secret
+  name: nagp-develop-secret
   namespace: kubernetes-cluster-aashishsawant
   labels:
-    app: nagp-master
+    app: nagp-develop
 data:
   Key: YWFzaGlzaC5zYXdhbnRAbmFnYXJyby5jb20=
   Vault: VGhpc0BQYXNzd29yZA==
