@@ -68,7 +68,7 @@ pipeline {
 				echo "Create Docker Image"
 				bat "docker build -t i-${username}-${BRANCH_NAME}:latest --no-cache -f Dockerfile ."
                 echo 'Pushing Image to Docker Hub'
-                withDockerRegistry([credentialsId: env.dockerhubcredentials, url: '']) {
+                withDockerRegistry(credentialsId: env.dockerhubcredentials, toolName: 'docker') {
                     bat "docker push aashishsawant/i-${username}-${BRANCH_NAME}:latest"
                 }
 		    }
