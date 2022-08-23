@@ -66,7 +66,7 @@ pipeline {
         stage('Docker Image') {
 			steps {
 				echo "Create Docker Image"
-				bat "docker build -t i-${username}-${BRANCH_NAME}:latest --no-cache -f Dockerfile ."
+				bat "docker build -t i-${username}-${BRANCH_NAME}:latest ."
                 echo 'Pushing Image to Docker Hub'
                 withDockerRegistry(credentialsId: env.dockerhubcredentials, toolName: 'docker') {
                     bat "docker push aashishsawant/i-${username}-${BRANCH_NAME}:latest"
