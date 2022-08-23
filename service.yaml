@@ -11,11 +11,11 @@ spec:
       targetPort: 80
       nodePort: 31500
   type: LoadBalancer
-envFrom: 
-- configMapRef:
-  name: nagp-devops-us-master-config
-- secretRef:
-  name: nagp-devops-us-master-secret
+  envFrom: 
+  - configMapRef:
+    name: nagp-devops-us-master-config
+  - secretRef:
+    name: nagp-devops-us-master-secret
 
 ---
 apiVersion: v1
