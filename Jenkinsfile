@@ -77,6 +77,7 @@ pipeline {
         stage('Kubernetes deployment'){
             steps {
 				echo 'Starting Kubernetes deployment'
+                bat "gcloud auth login"
                 bat "kubectl apply -f deployment.yaml"
                 bat "kubectl apply -f service.yaml"
             }
