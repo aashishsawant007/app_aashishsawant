@@ -6,6 +6,7 @@ pipeline {
         dockerhubcredentials = 'dockerhubcredentials'
         username = 'aashishsawant'
         appName = 'NAGP-DevOps'
+        registry = 'aashishsawant'
 	}
     
     stages {
@@ -62,6 +63,20 @@ pipeline {
 				bat "dotnet publish -c Release -o ${appname}/app/${username}" 
             }
         }
+        stage('Docker Image') {
+			steps {
+				echo "Create Docker Image"
+				bat "docker build -t i-${username}-${BRANCH_NAME}:${BUILD_NUMBER} --no-cache -f Dockerfile ."
+                echo 'Tagging Docker Image'
+                bat "docker tag i-${username}-${BRANCH_NAME} ${registry}:${BRANCH_NAME}-${BUILD_NUMBER}"
+                bat "docker tag i-${username}-${BRANCH_NAME} ${registry}:${BRANCH_NAME}-latest"
+
+                echo 'Pushing Image to Docker Hub'
+                withDockerRegistry([credentialsId: env.dockerhubcredentials, url: '']) {
+                    bat "docker push ${registry}:${BRANCH_NAME}-${BUILD_NUMBER}"
+                    bat "docker push ${registry}:${BRANCH_NAME}-latest"
+                }
+		}
         stage('Kubernetes deployment'){
             steps {
 				echo 'Starting Kubernetes deployment'
