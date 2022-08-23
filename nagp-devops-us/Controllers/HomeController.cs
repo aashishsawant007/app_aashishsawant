@@ -20,6 +20,7 @@ namespace nagp_devops_us.Controllers
 
         public IActionResult Index()
         {
+            InitializeViewBagValues();
             return View();
         }
 
@@ -39,6 +40,17 @@ namespace nagp_devops_us.Controllers
            //Added for coverage
            Console.WriteLine("coverage");
             return val;
+        }
+
+        private InitializeViewBagValues()
+        {
+            // Configurations
+            ViewBag.Url = Environment.GetEnvironmentVariable("AppConfigUrl");
+            ViewBag.Environment = Environment.GetEnvironmentVariable("AppConfigEnvironment");
+            
+            // Secerts
+            ViewBag.Key = Environment.GetEnvironmentVariable("Key");
+            ViewBag.Password = Environment.GetEnvironmentVariable("Vault ");
         }
     }
 }

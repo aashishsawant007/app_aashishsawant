@@ -1,0 +1,57 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: kubernetes-cluster-aashishsawant
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nagp-master-deployment
+  namespace: kubernetes-cluster-aashishsawant
+  labels:
+    app: nagp-master
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: nagp-master
+  template:
+    metadata:
+      name:  nagp-master-pod
+      labels:
+        app: nagp-master
+    spec:
+      containers:
+      - name: nagp-master-container
+        image: aashishsawant/i-aashishsawant-master:latest
+        envFrom: 
+        - configMapRef:
+            name: nagp-master-config
+        - secretRef:
+            name: nagp-master-secret
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nagp-master-config
+  namespace: kubernetes-cluster-aashishsawant
+  labels:
+    app: nagp-master
+data:
+  AppConfigUrl: "https://test.io/"
+  AppConfigEnvironment: "Production"
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: nagp-master-secret
+  namespace: kubernetes-cluster-aashishsawant
+  labels:
+    app: nagp-master
+data:
+  Key: YWFzaGlzaC5zYXdhbnRAbmFnYXJyby5jb20=
+  Vault: VGhpc0BQYXNzd29yZA==
+type: Opaque            
