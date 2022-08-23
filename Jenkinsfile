@@ -13,7 +13,7 @@ pipeline {
 	}
     
     stages {
-        stage('Code Checkout'){
+        stage('Start'){
             steps {
                 echo 'Checkout...' + env.BRANCH_NAME
                 git branch: "${env.BRANCH_NAME}", url: 'https://github.com/aashishsawant007/app_aashishsawant.git'
