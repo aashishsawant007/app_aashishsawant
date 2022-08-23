@@ -7,6 +7,9 @@ pipeline {
         username = 'aashishsawant'
         appName = 'NAGP-DevOps'
         registry = 'aashishsawant'
+        clusterName='kubernetes-cluster-aashishsawant'
+        gcloudProject='lucky-adviser-357404'
+        zone='us-central1-c'
 	}
     
     stages {
@@ -78,8 +81,10 @@ pipeline {
             steps {
 				echo 'Starting Kubernetes deployment'
                 bat "gcloud auth login"
+                bat "gcloud container clusters get-credentials ${clusterName} --zone ${zone} --project ${gcloudProject}"
                 bat "kubectl apply -f deployment.yaml"
                 bat "kubectl apply -f service.yaml"
+                echo 'Kubernetes deployment done'
             }
         }
     }
