@@ -73,6 +73,7 @@ pipeline {
 					}
 				}
             }
+        }
         stage('Kubernetes deployment'){
             steps {
 				echo 'Starting Kubernetes deployment'
