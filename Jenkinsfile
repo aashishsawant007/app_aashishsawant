@@ -3,7 +3,7 @@ pipeline {
 	
 	environment {
 		scannerHome = tool name: 'sonar_scanner_dotnet'
-        dockerhubcredentials = 'dockerhubcredentials'
+        credentialId = 'dockerhubcredentials'
         username = 'aashishsawant'
         appName = 'NAGP-DevOps'
         registry = 'aashishsawant'
@@ -66,19 +66,15 @@ pipeline {
 				bat "dotnet publish -c Release -o ${appname}/app/${username}" 
             }
         }
-        stage('Build & Push Docker Image'){
+        stage('Kubernetes deployment'){
             steps {
-				echo 'Starting Build & Push Docker Image'
+                echo 'Starting Build & Push Docker Image'
 				script{
 					dockerImage = docker.build "${username}/i-${username}-${env.BRANCH_NAME}:latest"
-					docker.withRegistry('', env.dockerhubcredentials) {
+					docker.withRegistry('', env.credentialId) {
 						dockerImage.push('latest')
 					}
 				}
-            }
-        }
-        stage('Kubernetes deployment'){
-            steps {
 				echo 'Starting Kubernetes deployment'
                 bat "gcloud auth login"
                 bat "gcloud container clusters get-credentials ${clusterName} --zone ${zone} --project ${gcloudProject}"
