@@ -42,7 +42,7 @@ namespace nagp_devops_us.Controllers
             return val;
         }
 
-        private InitializeViewBagValues()
+        private void InitializeViewBagValues()
         {
             // Configurations
             ViewBag.Url = Environment.GetEnvironmentVariable("AppConfigUrl");
