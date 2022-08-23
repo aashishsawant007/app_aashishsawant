@@ -66,6 +66,8 @@ pipeline {
         stage('Docker Image') {
 			steps {
 				echo "Create Docker Image"
+                echo "docker tag i-${username}-${BRANCH_NAME} ${registry}:${BRANCH_NAME}-${BUILD_NUMBER}"
+                echo "docker tag i-${username}-${BRANCH_NAME} ${registry}:${BRANCH_NAME}-latest"
 				bat "docker build -t i-${username}-${BRANCH_NAME}:${BUILD_NUMBER} --no-cache -f Dockerfile ."
                 echo 'Tagging Docker Image'
                 bat "docker tag i-${username}-${BRANCH_NAME} ${registry}:${BRANCH_NAME}-${BUILD_NUMBER}"
