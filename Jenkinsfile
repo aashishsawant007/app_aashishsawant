@@ -67,7 +67,7 @@ pipeline {
             steps {
 				echo 'Starting Build & Push Docker Image'
 				script{
-					dockerImage = docker.build 'aashishsawant/i-aashishsawant-master:latest'
+					dockerImage = docker.build "${username}/i-${username}-${env.BRANCH_NAME}:latest"
 					docker.withRegistry('', env.dockerhubcredentials) {
 						dockerImage.push('latest')
 					}
@@ -77,6 +77,8 @@ pipeline {
         stage('Kubernetes deployment'){
             steps {
 				echo 'Starting Kubernetes deployment'
+                bat "kubectl apply -f deployment.yaml"
+                bat "kubectl apply -f service.yaml"
             }
         }
     }
