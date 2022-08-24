@@ -50,7 +50,7 @@ namespace nagp_devops_us.Controllers
 
             // Secerts
             ViewBag.Key = Environment.GetEnvironmentVariable("key");
-            ViewBag.Password = Environment.GetEnvironmentVariable("vault");
+            ViewBag.Vault = Environment.GetEnvironmentVariable("vault");
         }
     }
 }
