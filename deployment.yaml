@@ -40,8 +40,8 @@ metadata:
   labels:
     app: nagp-master
 data:
-  AppConfigUrl: "https://test.io/"
-  AppConfigEnvironment: "Master Branch"
+  appConfigUrl: "https://test.io/"
+  appConfigEnvironment: "Master Branch"
 
 ---
 apiVersion: v1
@@ -52,6 +52,6 @@ metadata:
   labels:
     app: nagp-master
 data:
-  Key: YWFzaGlzaC5zYXdhbnRAbmFnYXJyby5jb20=
-  Vault: VGhpc0BQYXNzd29yZA==
+  key: YWFzaGlzaC5zYXdhbnRAbmFnYXJyby5jb20=
+  vault: VGhpc0BQYXNzd29yZA==
 type: Opaque            

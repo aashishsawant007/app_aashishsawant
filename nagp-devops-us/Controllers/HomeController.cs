@@ -45,12 +45,12 @@ namespace nagp_devops_us.Controllers
         private void InitializeViewBagValues()
         {
             // Configurations
-            ViewBag.Url = Environment.GetEnvironmentVariable("AppConfigUrl");
-            ViewBag.Environment = Environment.GetEnvironmentVariable("AppConfigEnvironment");
-            
+            ViewBag.AppConfigUrl = Environment.GetEnvironmentVariable("appConfigUrl");
+            ViewBag.AppConfigEnvironment = Environment.GetEnvironmentVariable("appConfigEnvironment");
+
             // Secerts
-            ViewBag.Key = Environment.GetEnvironmentVariable("Key");
-            ViewBag.Password = Environment.GetEnvironmentVariable("Vault ");
+            ViewBag.Key = Environment.GetEnvironmentVariable("key");
+            ViewBag.Password = Environment.GetEnvironmentVariable("vault");
         }
     }
 }
