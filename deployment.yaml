@@ -41,7 +41,7 @@ metadata:
     app: nagp-master
 data:
   AppConfigUrl: "https://test.io/"
-  AppConfigEnvironment: "Production"
+  AppConfigEnvironment: "Master Branch"
 
 ---
 apiVersion: v1
