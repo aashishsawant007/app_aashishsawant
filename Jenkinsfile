@@ -64,14 +64,13 @@ pipeline {
         }
         stage('Kubernetes deployment'){
             steps {
-                echo 'Starting Build & Push Docker Image'
+                echo 'Starting Kubernetes deployment'
 				script{
 					dockerImage = docker.build "${username}/i-${username}-${env.BRANCH_NAME}:latest"
 					docker.withRegistry('', env.credentialId) {
 						dockerImage.push('latest')
 					}
 				}
-				echo 'Starting Kubernetes deployment'
                 bat "gcloud auth login"
                 bat "gcloud container clusters get-credentials ${clusterName} --zone ${zone} --project ${gcloudProject}"
                 bat "kubectl apply -f deployment.yaml"
