@@ -40,8 +40,8 @@ metadata:
   labels:
     app: nagp-develop
 data:
-  AppConfigUrl: "https://test.io/"
-  AppConfigEnvironment: "Develop Branch"
+  appConfigUrl: "https://test.io/"
+  appConfigEnvironment: "Develop Branch"
 
 ---
 apiVersion: v1
@@ -52,6 +52,6 @@ metadata:
   labels:
     app: nagp-develop
 data:
-  Key: YWFzaGlzaC5zYXdhbnRAbmFnYXJyby5jb20=
-  Vault: VGhpc0BQYXNzd29yZA==
+  key: YWFzaGlzaC5zYXdhbnRAbmFnYXJyby5jb20=
+  vault: VGhpc0BQYXNzd29yZA==
 type: Opaque            
