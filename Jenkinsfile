@@ -13,14 +13,10 @@ pipeline {
 	}
     
     stages {
-        stage('Start'){
+        stage('Nuget Restore'){
             steps {
                 echo 'Checkout...' + env.BRANCH_NAME
                 git branch: "${env.BRANCH_NAME}", url: 'https://github.com/aashishsawant007/app_aashishsawant.git'
-            }
-        }
-        stage('Nuget Restore'){
-            steps {
                 bat 'dotnet restore'
             }
         }		      		
